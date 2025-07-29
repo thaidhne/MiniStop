@@ -2,30 +2,6 @@
 @{
     Layout = null;
 }
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="/css/admin.css">
-</head>
-<body>
-    <div class="sidebar">
-        <div>
-            <h2>Quản trị</h2>
-            <ul>
-                <li><a href="#">Tổng quan</a></li>
-                <li><a href="#">Người dùng</a></li>
-                <li><a href="#">Đơn hàng</a></li>
-                <li><a href="#">Báo cáo</a></li>
-                <li><a href="#">Cài đặt</a></li>
-            </ul>
-        </div>
-        <button class="logout-btn"><a asp-controller="Account" asp-action="Logout">Đăng xuất</a></button>
-    </div>
-
-    <div class="content">
         <div class="header">
             <h1>Xin chào, </h1>
             <button class="toggle-dark" onclick="toggleDarkMode()">Dark Mode</button>
@@ -39,11 +15,8 @@
                     <th>Usrid</th>
                     <th>Login name</th>
                     <th>Full name</th>
-                    <th>Email</th>
-                    <th>PhoneNumber</th>
                     <th>IsActive</th>
                     <th>CreatedAt</th>
-                    <th>LastLogin</th>
                     <th>RoleName</th>
                 </tr>
             </thead>
@@ -54,23 +27,14 @@
                         <td>@user.Usrid</td>
                         <td>@user.Username</td>
                         <td>@user.FullName</td>
-                        <td>@user.Email</td>
-                        <td>@user.PhoneNumber</td>
                         <td>@user.IsActive</td>
                         <td>@user.CreatedAt</td>
-                        <td>@user.LastLogin</td>
                         <td>@user.RoleName</td>
-                 
+                        <td>
+                            <a href="@Url.Action("Details", "Admin", new { id = user.Usrid })">Xem chi tiết</a>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-
-    <script>
-        function toggleDarkMode() {
-          document.body.classList.toggle("dark");
-        }
-    </script>
-</body>
-</html>
+ 

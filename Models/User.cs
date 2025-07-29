@@ -24,8 +24,10 @@ namespace MiniStop.Models
         public string AvatarUrl { get; set; }
 
         public bool IsActive { get; set; } = true;
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? LastLogin { get; set; }
+
+        public bool IsPassWordDefault { get; set; }
     }
 
 }

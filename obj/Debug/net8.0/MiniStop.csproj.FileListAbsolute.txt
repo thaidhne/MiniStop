@@ -78,6 +78,7 @@ D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\MiniS
 D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\rjimswa.dswa.cache.json
 D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\scopedcss\Views\Shared\_AdminLayout.cshtml.rz.scp.css
 D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\scopedcss\bundle\MiniStop.styles.css
 D:\HocTap\VisualStudio\source\MiniStop-Shop\MiniStop-Shop\obj\Debug\net8.0\scopedcss\projectbundle\MiniStop.bundle.scp.css

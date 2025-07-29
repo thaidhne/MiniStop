@@ -32,26 +32,27 @@ namespace MiniStop.Controllers
                     ModelState.AddModelError("", "Username already exists.");
                     return View(model);
                 }
-
+                
                 var user = new User
                 {
+                    
                     Username = model.Username,
                     PasswordHash = HashPassword(model.Password),
-                    FullName = model.Username, 
+                    FullName = model.FullName, 
                     Email = model.Email, 
                     PhoneNumber = model.PhoneNumber, 
                     RoleId = 100, 
                     AvatarUrl = string.Empty, 
                     IsActive = true,
-                    CreatedAt = DateTime.UtcNow,
-                    LastLogin = null 
+                    CreatedAt = DateTime.Now,
+                    LastLogin = null ,
+                    IsPassWordDefault = true 
                 };
 
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 return RedirectToAction("Login");
             }
-
             return View(model);
         }
 
@@ -72,7 +73,12 @@ namespace MiniStop.Controllers
                     HttpContext.Session.SetString("Username", user.Username);
                     HttpContext.Session.SetInt32("RoleId", user.RoleId);
                     // Login success
-                    return RedirectToAction("Admin", "Admin");
+                    if (user.IsPassWordDefault)
+                    {
+                        TempData["ShowResetPasswordPopup"] = true;
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    return RedirectToAction("Index", "Admin");
                 }
 
 
@@ -95,6 +101,10 @@ namespace MiniStop.Controllers
             HttpContext.Session.Clear(); 
             return RedirectToAction("Login", "Account");
         }
+
+        
+
+
     }
 }
 

@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="~/css/admin.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div>
+            <h2>Quản trị</h2>
+            <ul>
+                <li><a href="@Url.Action("Index", "Admin")">Tổng quan</a></li>
+                <li><a href="#" onclick="changeView('admin')">Người dùng</a></li>
+                <li><a href="#" onclick="changeView('product')">Sản phẩm</a></li>
+                <li><a href="#">Báo cáo</a></li>
+                <li><a href="#">Cài đặt</a></li>
+            </ul>
+        </div>
+        <button class="logout-btn"><a asp-controller="Account" asp-action="Logout">Đăng xuất</a></button>
+    </div>
+
+    <div class="content" id="content">
+        @RenderBody()
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleDarkMode() {
+          document.body.classList.toggle("dark");
+        }
+    </script>
+    <script src="~/js/admin.js"></script>
+    
+</body>
+</html>

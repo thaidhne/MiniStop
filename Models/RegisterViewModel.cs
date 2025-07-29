@@ -22,6 +22,8 @@ namespace MiniStop.Models
         public bool IsActive { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? LastLogin { get; set; } = null;
-        public int RoleId { get; set; } = 100; // Default role for new users
+        public int RoleId { get; set; } = 100; 
+
+        public bool IsPassWordDefault { get; set; } = true; 
     }
 }

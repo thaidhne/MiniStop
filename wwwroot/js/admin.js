@@ -1,16 +1,36 @@
-﻿function loadPage(page) {
-    const content = document.getElementById('main-content');
-    content.innerHTML = 'Đang tải...';
+﻿
+function changeView(view) {
+    const contentArea = document.getElementById('content');
+    contentArea.innerHTML = 'Đang tải...';
+    const sidebar = document.getElementById('sidebar');
 
-    fetch(`pages/${page}.html`)
-        .then(res => {
-            if (!res.ok) throw new Error("Không tìm thấy nội dung");
-            return res.text();
-        })
-        .then(html => {
-            content.innerHTML = html;
-        })
-        .catch(err => {
-            content.innerHTML = `<p style="color:red;">Lỗi: ${err.message}</p>`;
-        });
+    $.ajax({
+        
+        url: `/Admin/${view}`, 
+        type: 'GET',
+        success: function (data) {
+            contentArea.innerHTML = data;  
+        },
+        error: function () {
+            contentArea.innerHTML = '<p>Đã có lỗi xảy ra, vui lòng thử lại sau.</p>'; 
+        }
+
+    });
+}
+function enableEditing() {
+   
+    document.getElementById('fullName').disabled = false;
+    document.getElementById('phoneNumber').disabled = false;
+    document.getElementById('email').disabled = false;
+    document.getElementById('btnModify').disabled = true;
+    document.getElementById('btnSave').disabled = false;
+}
+
+function enableSave() {
+
+    document.getElementById('fullName').disabled = true;
+    document.getElementById('phoneNumber').disabled = true;
+    document.getElementById('email').disabled = true;
+    document.getElementById('btnSave').disabled = true;
+    document.getElementById('btnModify').disabled = false;
 }
