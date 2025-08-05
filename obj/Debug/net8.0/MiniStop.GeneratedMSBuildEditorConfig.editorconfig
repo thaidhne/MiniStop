@@ -28,16 +28,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HocTap/VisualStudio/source/MiniStop-Shop/MiniStop-Shop/Views/Admin/AddNew.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkTmV3LmNzaHRtbA==
+[D:/HocTap/VisualStudio/source/MiniStop-Shop/MiniStop-Shop/Views/Admin/Account/DetailsAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWNjb3VudFxEZXRhaWxzQWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HocTap/VisualStudio/source/MiniStop-Shop/MiniStop-Shop/Views/Admin/Admin.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW4uY3NodG1s
+[D:/HocTap/VisualStudio/source/MiniStop-Shop/MiniStop-Shop/Views/Admin/Account/UserAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWNjb3VudFxVc2VyQWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HocTap/VisualStudio/source/MiniStop-Shop/MiniStop-Shop/Views/Admin/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGV0YWlscy5jc2h0bWw=
+[D:/HocTap/VisualStudio/source/MiniStop-Shop/MiniStop-Shop/Views/Admin/AddAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HocTap/VisualStudio/source/MiniStop-Shop/MiniStop-Shop/Views/Admin/Index.cshtml]

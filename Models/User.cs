@@ -19,7 +19,7 @@ namespace MiniStop.Models
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 100;
 
         public string AvatarUrl { get; set; }
 

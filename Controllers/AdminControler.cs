@@ -1,118 +1,126 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using MiniStop.Common.Security;
-using MiniStop.Database;
-using MiniStop.Interface;
+﻿using Microsoft.AspNetCore.Mvc;
 using MiniStop.Models;
+using MiniStop.Services.Interface;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class AdminController : Controller
 {
-    private readonly ApplicationDbContext _context;
-    private readonly IPassword _password;
+    private readonly IAccountService _accountService;
 
-    public AdminController(ApplicationDbContext context, IPassword password)
+    public AdminController(IAccountService accountService)
     {
-        _context = context;
-        _password = password;
-    }
-    public IActionResult Admin()
-    {
-        var users = from u in _context.Users
-                    join r in _context.Roles on u.RoleId equals r.RoleId
-                    select new AdminViewModel
-                    {
-                        Usrid = u.Usrid,
-                        Username = u.Username,
-                        FullName = u.FullName,
-                        PhoneNumber = u.PhoneNumber,
-                        Email = u.Email,
-                        IsActive = u.IsActive,
-                        RoleName = r.Name,
-                    };
-
-        return PartialView("Admin", users.ToList());
-    }
-    public IActionResult Product()
-    {
-        return PartialView("Product");
+        _accountService = accountService;
     }
 
     [HttpGet]
-    public IActionResult Index()
-    {
+    public IActionResult Login() => View();
 
-        bool hasChangedPassword = _context.Users.FirstOrDefault(u => u.Usrid == HttpContext.Session.GetInt32("UserId"))?.IsPassWordDefault ?? false;
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            bool isAuthenticated = await _accountService.AuthenticateAsync(model.Username, model.Password);
+            if (isAuthenticated)
+            {
+                var user = await _accountService.GetUserByUserAsync(model.Username); 
+                HttpContext.Session.SetInt32("UserId", user.Usrid);
+                HttpContext.Session.SetString("Username", user.Username);
+                HttpContext.Session.SetInt32("RoleId", user.RoleId);
+
+                if (user.IsPassWordDefault)
+                {
+                    TempData["ShowResetPasswordPopup"] = true;
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                return RedirectToAction("Index", "Admin");
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid account or password");
+        }
+
+        return View(model);
+    }
+
+    public Task<IActionResult> Logout()
+    {
+        HttpContext.Session.Clear();
+        return Task.FromResult<IActionResult>(RedirectToAction("Login", "Account"));
+    }
+
+    public async Task<IActionResult> UserAccount()
+    {
+        var users = await _accountService.GetAllUsersAsync(); 
+        return PartialView("Account/UserAccount", users);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        bool hasChangedPassword = (await _accountService.GetUserByIdAsync(HttpContext.Session.GetInt32("UserId") ?? 0))?.IsPassWordDefault ?? false;
 
         if (hasChangedPassword)
         {
-            HttpContext.Session.SetString("ShowResetPasswordPopup", "true"); 
+            HttpContext.Session.SetString("ShowResetPasswordPopup", "true");
         }
 
-        
         return View();
     }
 
     [HttpPost]
-    public IActionResult ResetPassword(ResetPasswordViewModel model)
+    public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
     {
+        var userId = HttpContext.Session.GetInt32("UserId");
+        bool isPasswordChanged = await _accountService.ResetPasswordAsync(userId ?? 0, model.NewPassword);
 
+        if (isPasswordChanged)
         {
-            var userId = HttpContext.Session.GetInt32("UserId");
-            var user = _context.Users.FirstOrDefault(u => u.Usrid == userId);
-
-            if (user != null)
-            {
-                user.PasswordHash = _password.HashPassword(model.NewPassword);
-                user.IsPassWordDefault = false;
-                _context.SaveChanges();
-                TempData["ShowResetPasswordPopup"] = null;
-                HttpContext.Session.Remove("ShowResetPasswordPopup");
-                return RedirectToAction("Index", "Admin");
-            }
-
-            ModelState.AddModelError(string.Empty, "User not found.");
-
-
-            return View(model);
-
+            TempData["ShowResetPasswordPopup"] = null;
+            HttpContext.Session.Remove("ShowResetPasswordPopup");
+            return RedirectToAction("Index", "Admin");
         }
+
+        ModelState.AddModelError(string.Empty, "User not found.");
+        return View(model);
     }
 
-    public IActionResult Details(int id)
+    [HttpGet]
+    public async Task<IActionResult> DetailsAccount(int id)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Usrid == id);
+        var user = await _accountService.GetUserByIdAsync(id);
         if (user == null)
         {
             return NotFound();
         }
-        return View(user);
-        
+        return View("Account/DetailsAccount", user);
     }
 
-    public IActionResult btnSave(int id, User User)
+    [HttpPost]
+    public async Task<IActionResult> btnSave(int id, User user)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Usrid == User.Usrid);
-
-        if (user == null)
+        var isUpdated = await _accountService.UpdateUserInfoAsync(user);
+        if (!isUpdated)
         {
-            
             return NotFound();
         }
-
-        // Cập nhật thông tin từ model gửi lên
-        user.FullName = User.FullName;
-        user.Email = User.Email;
-        user.PhoneNumber = User.PhoneNumber;
- 
-        _context.SaveChanges();
-
-        // Chuyển hướng người dùng về trang chi tiết nhân viên hoặc danh sách
-        return RedirectToAction("Details", new { id = user.Usrid });
-
+        return RedirectToAction("DetailsAccount","Admin",new { id = user.Usrid });
     }
-
-    public IActionResult AddNew()
+    
+    
+    
+    [HttpGet]
+    public IActionResult AddAccount()
     {
         return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> AddAccount(User user)
+    {
+        var newUser = await _accountService.AddUserInfoAsync(user);
+        
+        return View(newUser);
     }
 }

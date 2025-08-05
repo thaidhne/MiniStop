@@ -1,0 +1,53 @@
+﻿@model MiniStop.Models.User
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="header">
+    <h1>Thêm mới Nhân Viên</h1>
+</div>
+
+<div class="summary">
+    <h3>Thông Tin Cá Nhân</h3>
+    <form method="post">
+    <div class="info-grid">
+        <div class="info-item">
+            <label asp-for="Usrid">Usrid:</label>
+            <input asp-for="Usrid" class="input-text" id="usrid" disabled/>
+            
+        </div>
+        <div class="info-item">
+            <label>Password:</label>
+            <input asp-for="PasswordHash" class="input-text" id="password" disabled />
+        </div>
+        <div class="info-item">
+            <label asp-for="Username">Login Name:</label>
+            <input asp-for="Username"  class="input-text" id="username" />
+        </div>
+
+        <div class="info-item">
+             <label asp-for="FullName">Full name:</label>
+             <input asp-for="FullName" class="input-text" id="fullName"  />
+        </div>
+
+        <div class="info-item">
+                <label asp-for="Email">Email:</label>
+                <input asp-for="Email" class="input-text" id="email"  />
+        </div>
+
+        <div class="info-item">
+                <label asp-for="PhoneNumber">Phone number:</label>
+                <input asp-for="PhoneNumber" class="input-text" id="phoneNumber" />
+        </div>
+    </div>
+
+
+    <div class="button-group">
+        <button class="btn save-btn" type="submit" asp-action="AddAccount" asp-controller="Admin">Lưu kết quả</button>
+    </div>
+    </form>
+    
+</div>
+
+<a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Quay lại danh sách</a>

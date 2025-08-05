@@ -1,0 +1,74 @@
+﻿@model MiniStop.Models.User
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="header">
+    <h1>Chi Tiết Nhân Viên</h1>
+</div>
+
+<div class="summary">
+    <h3>Thông Tin Cá Nhân</h3>
+    <form>
+    <div class="info-grid">
+        <div class="info-item">
+            <label asp-for="Usrid">Usrid:</label>
+            <input asp-for="Usrid"class="input-text" id="usrid" disabled/>
+            <input asp-for="Usrid" hidden />
+        </div>
+
+        <div class="info-item">
+            <label asp-for="Username">Login Name:</label>
+                <input asp-for="Username"  class="input-text" id="username" disabled />
+        </div>
+
+        <div class="info-item">
+             <label asp-for="FullName">Full name:</label>
+                <input asp-for="FullName" class="input-text" id="fullName" disabled />
+        </div>
+
+        <div class="info-item">
+                <label asp-for="Email">Email:</label>
+                <input asp-for="Email" class="input-text" id="email" disabled />
+        </div>
+
+        <div class="info-item">
+                <label asp-for="PhoneNumber">Phone number:</label>
+                <input asp-for="PhoneNumber" class="input-text" id="phoneNumber" disabled/>
+        </div>
+
+        <div class="info-item">
+            <label asp-for="IsActive">Status:</label>
+                <input asp-for="IsActive" type="text"  class ="input-text" id="status" disabled />
+            </div>
+
+        <div class="info-item">
+                <label asp-for="CreatedAt">Created At:</label>
+                <input asp-for="CreatedAt" type="text" id="createdAt" class="input-text" disabled />
+        </div>
+
+        <div class="info-item">
+                <label asp-for="LastLogin">Last Login:</label>
+                <input id="lastLogin" class="input-text" disabled asp-for="LastLogin" type="text" />
+            </div>
+    </div>
+
+
+    <div class="button-group">
+         <button class="btn add-btn" id="btnAdd" asp-action="AddAccount" asp-controller="Admin" formmethod="get">Thêm mới</button>
+         <button class="btn modify-btn" id="btnModify" onclick="enableEditing()">Chỉnh sửa</button>
+         <button class="btn save-btn" id="btnSave" type="submit" formmethod="post" asp-action="btnSave" asp-controller="Admin" disabled>Lưu kết quả</button>
+    </div>
+        
+
+    </form>
+
+
+    
+
+
+</div>
+
+<a href="#" onclick="changeView('UserAccount')" class="btn btn-secondary">Quay lại danh sách</>
+

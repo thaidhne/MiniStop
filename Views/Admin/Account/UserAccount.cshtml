@@ -1,0 +1,40 @@
+﻿@model List<MiniStop.Models.AdminViewModel>
+@{
+    Layout = null;
+}
+        <div class="header">
+            <h1>Xin chào, </h1>
+            <button class="toggle-dark" onclick="toggleDarkMode()">Dark Mode</button>
+        </div>
+
+        <h2>Danh sách người dùng</h2>
+        <h2><a asp-controller="Account" asp-action="Login">Đăng nhập</a></h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usrid</th>
+                    <th>Login name</th>
+                    <th>Full name</th>
+                    <th>IsActive</th>
+                    <th>CreatedAt</th>
+                    <th>RoleName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Usrid</td>
+                        <td>@user.Username</td>
+                        <td>@user.FullName</td>
+                        <td>@user.IsActive</td>
+                        <td>@user.CreatedAt</td>
+                        <td>@user.RoleName</td>
+                        <td>
+                    <a href="@Url.Action("DetailsAccount", "Admin", new { id = user.Usrid })">Xem chi tiết</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+ 

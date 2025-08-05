@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore; // Add this using directive
 using MiniStop.Common.Security;
 using MiniStop.Database;
-using MiniStop.Interface;
+using MiniStop.Service.Interface;
+using MiniStop.Services;
+using MiniStop.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<IPassword, Password>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 app.UseSession();
